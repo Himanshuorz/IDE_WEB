@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Play, Check } from "lucide-react";
+import { Play, Check, Download } from "lucide-react";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -19,9 +19,22 @@ export default function Hero() {
           isolated workers on the user&apos;s own machine.
         </p>
 
-        <Link href="/ide" className={styles.heroCta}>
-          Start Coding
-        </Link>
+        <div className={styles.heroCtaGroup}>
+          <Link href="/ide" className={styles.heroCta}>
+            Start Coding
+          </Link>
+
+          <a
+            href="https://github.com/Himanshuorz/IDE_WEB/actions/runs/24620583370/artifacts/6515521817"
+            className={styles.heroDownload}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download WebIDE Desktop App for Windows (ZIP)"
+          >
+            <Download size={15} style={{ display: "inline", marginRight: 6 }} />
+            Download Desktop App
+          </a>
+        </div>
       </div>
 
       <div className={styles.heroRight}>

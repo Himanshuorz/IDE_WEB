@@ -18,9 +18,17 @@ export default function Navbar() {
         <Link href="#techstack" className={styles.navLink}>
           Tech Stack
         </Link>
-        <Link href="https://github.com/Krishna-10-7/web_ide" className={styles.navLink} target="_blank">
+        <Link href="https://github.com/Himanshuorz/IDE_WEB" className={styles.navLink} target="_blank">
           GitHub
         </Link>
+        <a
+          href="https://github.com/Himanshuorz/IDE_WEB/actions/runs/24620583370/artifacts/6515521817"
+          className={styles.navLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ↓ Download
+        </a>
         <Link href="/ide" className={styles.ctaButton}>
           Open IDE
         </Link>
