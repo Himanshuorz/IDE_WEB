@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VFS Test</title>
+</head>
+<body>
+    <h1>Web IDE - VFS Test</h1>
+    <button onclick="testSave()">Test Save</button>
+    <button onclick="testRead()">Test Read</button>
+    <button onclick="testList()">Test List</button>
+    <button onclick="clearDB()">Clear Database</button>
+    <pre id="output"></pre>
+
+    <script>
+        const DB_NAME = "WebIDE_VFS";
+        const STORE_NAME = "files";
+        const DB_VERSION = 1;
+
+        let dbPromise = null;
+
+        function log(msg) {
+            document.getElementById('output').textContent += msg + '\n';
+        }
+
+        function getDb() {
+            if (dbPromise) return dbPromise;
+
+            dbPromise = new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: "path" });
+                    }
+                };
+            });
+
+            return dbPromise;
+        }
+
+        async function testSave() {
+            try {
+                const db = await getDb();
+                const tx = db.transaction(STORE_NAME, "readwrite");
+                const store = tx.objectStore(STORE_NAME);
+                
+                const testData = {
+                    path: "test-file",
+                    content: "Hello World " + new Date().toISOString(),
+                    timestamp: Date.now()
+                };
+                
+                await new Promise((resolve, reject) => {
+                    const request = store.put(testData);
+                    request.onsuccess = () => resolve(true);
+                    request.onerror = () => reject(request.error);
+                });
+                
+                log('✓ Save successful: ' + testData.content);
+            } catch (err) {
+                log('✗ Save failed: ' + err.message);
+            }
+        }
+
+        async function testRead() {
+            try {
+                const db = await getDb();
+                const tx = db.transaction(STORE_NAME, "readonly");
+                const store = tx.objectStore(STORE_NAME);
+                
+                const result = await new Promise((resolve, reject) => {
+                    const request = store.get("test-file");
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+                
+                if (result) {
+                    log('✓ Read successful: ' + result.content);
+                } else {
+                    log('✗ No data found for test-file');
+                }
+            } catch (err) {
+                log('✗ Read failed: ' + err.message);
+            }
+        }
+
+        async function testList() {
+            try {
+                const db = await getDb();
+                const tx = db.transaction(STORE_NAME, "readonly");
+                const store = tx.objectStore(STORE_NAME);
+                
+                const results = await new Promise((resolve, reject) => {
+                    const request = store.getAll();
+                    request.onsuccess = () => resolve(request.result || []);
+                    request.onerror = () => reject(request.error);
+                });
+                
+                log('✓ Found ' + results.length + ' files:');
+                results.forEach(r => {
+                    log('  - ' + r.path + ' (' + (r.content?.length || 0) + ' bytes)');
+                });
+            } catch (err) {
+                log('✗ List failed: ' + err.message);
+            }
+        }
+
+        async function clearDB() {
+            try {
+                dbPromise = null;
+                await new Promise((resolve, reject) => {
+                    const request = indexedDB.deleteDatabase(DB_NAME);
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => reject(request.error);
+                });
+                log('✓ Database cleared');
+            } catch (err) {
+                log('✗ Clear failed: ' + err.message);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+.features {
+  padding: 80px 40px;
+  border-top: 2px solid var(--border-dark);
+}
+
+.sectionLabel {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1.5px solid var(--border-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-card);
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.sectionDescription {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-dark);
+  padding: 28px 24px;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.08);
+}
+
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border: 1.5px solid var(--border-dark);
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.cardDescription {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}

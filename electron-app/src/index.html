@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self';" />
+    <title>WebIDE · Desktop</title>
+    <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css" />
+    <link rel="stylesheet" href="../node_modules/codemirror/theme/dracula.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ide ideShell">
+      <header class="toolbar toolbarGlow">
+        <div class="toolbarLeft">
+          <div class="toolbarLogo" title="Local judge sandbox">
+            <span class="toolbarLogoMark">◇</span> WebIDE
+            <span class="toolbarLogoSub">Desktop</span>
+          </div>
+          <button id="pickWorkspaceBtn" class="toolbarBtn toolbarBtnGhost">Open folder</button>
+          <button id="saveBtn" class="toolbarBtn toolbarBtnGhost">Save</button>
+          <button id="runBtn" class="toolbarBtn runBtn">
+            <span class="btnIcon" aria-hidden="true">▶</span> Run
+          </button>
+          <button id="openTestsPanelBtn" type="button" class="toolbarBtn toolbarTestsJump" title="Open test cases panel">
+            <span class="btnIcon" aria-hidden="true">🧪</span> Test cases
+          </button>
+          <button id="runTestsBtn" class="toolbarBtn testRunBtn" title="Run all tests">
+            <span class="btnIcon" aria-hidden="true">▶</span> Run tests
+            <span class="testBtnBadge" id="testToolbarBadge">0</span>
+          </button>
+        </div>
+        <div class="toolbarRight">
+          <label class="langLabel" for="languageSelect">Language</label>
+          <select id="languageSelect" class="langSelect">
+            <option value="cpp">C++ (g++)</option>
+            <option value="c">C (gcc via g++)</option>
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript (Node)</option>
+            <option value="sql">SQL (SQLite CLI)</option>
+            <option value="pgsql">PostgreSQL (psql)</option>
+          </select>
+          <div id="workspacePath" class="langIndicator" title="Workspace">No folder selected</div>
+        </div>
+      </header>
+
+      <div class="mainContent">
+        <aside class="sidebar sidebarAccent">
+          <div class="sidebarPanelTabs">
+            <button type="button" class="sidebarPanelTab sidebarPanelTabWide sidebarPanelTabActive" id="panelExplorerBtn" title="Files">
+              <span class="sidebarTabIcon" aria-hidden="true">📁</span>
+              <span class="sidebarTabLabel">Files</span>
+            </button>
+            <button type="button" class="sidebarPanelTab sidebarPanelTabWide" id="panelTestsBtn" title="Test cases">
+              <span class="sidebarTabIcon" aria-hidden="true">🧪</span>
+              <span class="sidebarTabLabel">Tests</span>
+              <span id="testBadge" class="testBadge" style="display: none"></span>
+            </button>
+          </div>
+
+          <div id="explorerPanel">
+            <div class="sidebarHeader">
+              <span>Explorer</span>
+              <div class="sidebarHeaderActions">
+                <button type="button" id="jumpTestsFromExplorer" class="linkishBtn" title="Switch to test cases">Tests →</button>
+                <button type="button" id="newFileBtn" class="sidebarHeaderBtn primaryIcon" title="New file">＋</button>
+              </div>
+            </div>
+            <div id="fileTree" class="fileTree"></div>
+
+            <div id="newFileRow" class="newFileDrawer" style="display: none" aria-hidden="true">
+              <div class="newFileDrawerTitle">New file</div>
+              <p class="newFileHint">Pick a template or type a name — <kbd>Enter</kbd> to create, <kbd>Esc</kbd> to cancel.</p>
+              <div class="newFileChips" id="newFileChips">
+                <button type="button" class="fileChip" data-name="main.py">main.py</button>
+                <button type="button" class="fileChip" data-name="solution.cpp">solution.cpp</button>
+                <button type="button" class="fileChip" data-name="app.js">app.js</button>
+                <button type="button" class="fileChip" data-name="query.sql">query.sql</button>
+                <button type="button" class="fileChip" data-name="README.md">README.md</button>
+              </div>
+              <div class="newFileRowInner">
+                <input id="newFileInput" type="text" class="newFileInput" placeholder="e.g. day1.cpp" autocomplete="off" />
+                <button type="button" id="newFileConfirm" class="pillBtn pillBtnOk">Create</button>
+                <button type="button" id="newFileCancel" class="pillBtn pillBtnCancel">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="testsPanel" class="testsPanel" style="display: none">
+            <div class="sidebarHeader testsHeader">
+              <span>Test cases</span>
+              <div class="sidebarHeaderActions">
+                <button type="button" id="addTestBtn" class="sidebarHeaderBtn addTestPrimary" title="Add test case">＋ Add</button>
+                <button type="button" id="runAllTestsBtn" class="sidebarHeaderBtn" title="Run all">▶</button>
+              </div>
+            </div>
+            <div id="testSummaryBar" class="testSummaryBar" style="display: none"></div>
+            <div id="testList" class="testList"></div>
+          </div>
+        </aside>
+
+        <main class="editorTerminalSplit">
+          <div class="tabBar">
+            <div id="activeFileLabel" class="tab tabActive">No file opened</div>
+            <div id="dirtyIndicator" class="dirtyIndicator" style="display: none">● Unsaved</div>
+          </div>
+
+          <section class="editorArea editorAreaFrame">
+            <textarea id="editor" spellcheck="false"></textarea>
+          </section>
+
+          <div class="hResizeHandle"></div>
+
+          <section class="terminalArea">
+            <div class="terminalHeader">Program I/O</div>
+            <div class="terminalShell">
+              <pre id="outputPanel"></pre>
+              <div class="terminalInputRow">
+                <span class="prompt">&gt;</span>
+                <input id="terminalInput" type="text" autocomplete="off" placeholder="Runtime stdin — press Enter" />
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="../node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="../node_modules/codemirror/mode/python/python.js"></script>
+    <script src="../node_modules/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../node_modules/codemirror/mode/clike/clike.js"></script>
+    <script src="../node_modules/codemirror/mode/sql/sql.js"></script>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

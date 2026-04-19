@@ -1,0 +1,185 @@
+.hero {
+  padding: 80px 40px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.heroLeft {
+  max-width: 560px;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.badge {
+  padding: 4px 14px;
+  border: 1.5px solid var(--border-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-card);
+}
+
+.heroTitle {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.heroDescription {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  max-width: 440px;
+}
+
+.heroCta {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--accent);
+  color: var(--text-primary);
+  border: 2px solid var(--border-dark);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.2s;
+}
+
+.heroCta:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--border-dark);
+}
+
+/* Right side — notebook code preview */
+.heroRight {
+  position: relative;
+}
+
+.codeNotebook {
+  background: var(--bg-card);
+  border: 2px solid var(--border-dark);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.08);
+}
+
+.notebookHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-dark);
+  border-bottom: 2px solid var(--border-dark);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dotRed { background: #e74c3c; }
+.dotYellow { background: #f1c40f; }
+.dotGreen { background: #2ecc71; }
+
+.notebookTitle {
+  font-size: 0.72rem;
+  color: #888;
+  font-family: var(--font-mono);
+  margin-left: 8px;
+}
+
+.notebookTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: #f9f6f0;
+}
+
+.tab {
+  padding: 8px 16px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  border-right: 1px solid var(--border);
+  cursor: default;
+}
+
+.tabActive {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+}
+
+.notebookBody {
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  min-height: 260px;
+}
+
+.codeLine {
+  display: flex;
+  gap: 16px;
+}
+
+.lineNumber {
+  color: var(--text-muted);
+  user-select: none;
+  min-width: 20px;
+  text-align: right;
+}
+
+.codeText {
+  white-space: pre;
+}
+
+.keyword { color: #8b5cf6; font-weight: 600; }
+.string { color: #059669; }
+.comment { color: #9ca3af; font-style: italic; }
+.func { color: #d97706; }
+.builtin { color: #2563eb; }
+
+.notebookOutput {
+  border-top: 2px solid var(--border);
+  padding: 14px 20px;
+  background: #1a1a1a;
+  color: #22c55e;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.outputLabel {
+  color: #f5c518;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Decorative dots grid */
+.dotsGrid {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background-image: radial-gradient(circle, #1a1a1a 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  opacity: 0.3;
+}

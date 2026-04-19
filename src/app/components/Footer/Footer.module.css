@@ -1,0 +1,36 @@
+.footer {
+  padding: 40px 40px;
+  border-top: 2px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-dark);
+  color: #aaa;
+}
+
+.footerLogo {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.footerLink {
+  font-size: 0.78rem;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.footerLink:hover {
+  color: var(--accent);
+}
+
+.footerRight {
+  font-size: 0.72rem;
+  color: #666;
+}

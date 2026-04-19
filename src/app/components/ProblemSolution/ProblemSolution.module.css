@@ -1,0 +1,109 @@
+.section {
+  padding: 80px 40px;
+  border-top: 2px solid var(--border-dark);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-secondary) 50%, transparent), transparent 140px),
+    var(--bg-primary);
+}
+
+.intro {
+  margin-bottom: 40px;
+  max-width: 760px;
+}
+
+.sectionLabel {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1.5px solid var(--border-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-card);
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.sectionDescription {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-dark);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cardTag {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 6px 12px;
+  background: var(--bg-dark);
+  color: var(--bg-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cardTagAccent {
+  background: var(--accent);
+  color: var(--text-primary);
+}
+
+.cardTitle {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.cardLead {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.list {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.list li + li {
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 64px 20px;
+  }
+
+  .sectionTitle {
+    font-size: 2.2rem;
+  }
+
+  .card {
+    padding: 22px;
+  }
+}

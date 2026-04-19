@@ -1,0 +1,87 @@
+.techstack {
+  padding: 80px 40px;
+  border-top: 2px solid var(--border-dark);
+}
+
+.sectionLabel {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 1.5px solid var(--border-dark);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-card);
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.sectionDescription {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.layer {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.layer:last-child {
+  border-bottom: none;
+}
+
+.layerName {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  padding-top: 4px;
+}
+
+.techItems {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.techItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-dark);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.techItem:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.techIcon {
+  font-size: 1rem;
+}

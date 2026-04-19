@@ -1,0 +1,15 @@
+{
+  "name": "web-ide-electron",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone Electron IDE with native filesystem and Judge0-inspired local execution engine",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "codemirror": "^5.65.16",
+    "electron": "^31.0.2"
+  }
+}
