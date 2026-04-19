@@ -4,12 +4,54 @@
   "private": true,
   "description": "Standalone Electron IDE with native filesystem and Judge0-inspired local execution engine",
   "main": "main.js",
+  "author": "Himanshuorz",
   "scripts": {
     "dev": "electron .",
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder --win --x64",
+    "dist:dir": "electron-builder --win --x64 --dir"
   },
   "dependencies": {
-    "codemirror": "^5.65.16",
-    "electron": "^31.0.2"
+    "codemirror": "^5.65.16"
+  },
+  "devDependencies": {
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.himanshuorz.webide",
+    "productName": "WebIDE",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "engine/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
